@@ -8,6 +8,8 @@ socket.on('active', (numberActive) => {
 })
 
 socket.on('buzzes', (buzzes) => {
+  console.log('get buzzes')
+  console.log(buzzes)
   buzzList.innerHTML = buzzes
     .map(buzz => {
       const p = buzz.split('-')

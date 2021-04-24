@@ -5,6 +5,7 @@ const joined = document.querySelector('.js-joined')
 const buzzer = document.querySelector('.js-buzzer')
 const joinedInfo = document.querySelector('.js-joined-info')
 const editInfo = document.querySelector('.js-edit')
+const message = document.querySelector('.js-message')
 
 let user = {}
 
@@ -43,5 +44,17 @@ editInfo.addEventListener('click', () => {
   form.classList.remove('hidden')
   body.classList.remove('buzzer-mode')
 })
+
+socket.on('buzzed', function(msg) {
+  message.innerText = msg
+  buzzer.classList.add('lock')
+  buzzer.disabled = true
+});
+
+socket.on('clearBtn', function() {
+  message.innerText = ""
+  buzzer.classList.remove('lock')
+  buzzer.disabled = false
+});
 
 getUserInfo()

@@ -38,12 +38,23 @@ io.on('connection', (socket) => {
     data.buzzes.add(`${user.name}-${user.team}`)
     io.emit('buzzes', [...data.buzzes])
     console.log(`${user.name} buzzed in!`)
+    if(data.buzzes.size === 1){
+      var it = data.buzzes.values();
+      //get first entry:
+      var first = it.next();
+      //get value out of the iterator entry:
+      const firstBuzz = first.value;
+      const p = firstBuzz.split('-')
+
+      io.emit('buzzed', `First pressed button : ${p[0]}`)
+    }
   })
 
   socket.on('clear', () => {
     data.buzzes = new Set()
     io.emit('buzzes', [...data.buzzes])
     console.log(`Clear buzzes`)
+    io.emit('clearBtn')
   })
 })
 
